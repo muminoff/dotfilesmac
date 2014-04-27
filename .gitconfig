@@ -1,6 +1,6 @@
 [user]
-    name = Gary Bernhardt
-    email = gary.bernhardt@gmail.com
+	name = muminoff
+	email = smuminov@gmail.com
 [diff]
 [color]
     ui = auto
@@ -46,3 +46,11 @@
 [merge]
     tool = vimdiff
 
+[core]
+	excludesfile = /Users/muminoff/.gitignore_global
+[difftool "sourcetree"]
+	cmd = opendiff \"$LOCAL\" \"$REMOTE\"
+	path = 
+[mergetool "sourcetree"]
+	cmd = /opt/homebrew-cask/Caskroom/sourcetree/1.8.1/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
+	trustExitCode = true
