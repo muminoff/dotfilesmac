@@ -84,11 +84,12 @@ augroup vimrcEx
     \ endif
 
   "for ruby, autoindent with two spaces, always expand tabs
-  autocmd FileType ruby,haml,eruby,yaml,html,javascript,sass,cucumber set ai sw=2 sts=2 et
+  autocmd FileType ruby,haml,ejs,eruby,yaml,html,javascript,sass,cucumber set ai sw=2 sts=2 et
   autocmd FileType python set sw=4 sts=4 et
 
   autocmd! BufRead,BufNewFile *.sass setfiletype sass 
 
+  autocmd BufRead *.ejs  set ai ft=html
   autocmd BufRead *.mkd  set ai formatoptions=tcroqn2 comments=n:&gt;
   autocmd BufRead *.markdown  set ai formatoptions=tcroqn2 comments=n:&gt;
 
@@ -505,7 +506,7 @@ endfunction
 
 " Find all files in all non-dot directories starting in the working directory.
 " Fuzzy select one of those. Open the selected file with :e.
-nnoremap <leader>f :call SelectaCommand("find * -type f", "", ":e")<cr>
+" nnoremap <leader>f :call SelectaCommand("find * -type f", "", ":e")<cr>
 
 function! SelectaIdentifier()
   " Yank the word under the cursor into the z register
@@ -515,3 +516,87 @@ function! SelectaIdentifier()
   call SelectaCommand("find * -type f", "-s " . @z, ":e")
 endfunction
 nnoremap <c-g> :call SelectaIdentifier()<cr>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Run Django HttpServer
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! DjangoRunServer()
+  :w
+  :silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
+  :silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
+  :silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
+  :silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
+  :silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
+  :!python manage.py runserver
+endfunction
+nnoremap <leader>r :call DjangoRunServer()<cr>
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Run Django Test
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! DjangoRunTest()
+  :w
+  :silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
+  :silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
+  :silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
+  :silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
+  :silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
+  :!python manage.py test
+endfunction
+nnoremap <leader>t :call DjangoRunTest()<cr>
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Run Django Syncdb
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! DjangoRunSyncdb()
+  :w
+  :silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
+  :silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
+  :silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
+  :silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
+  :silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
+  :!python manage.py syncdb
+endfunction
+nnoremap <leader>s :call DjangoRunSyncdb()<cr>
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Run Django Shell
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! DjangoRunShell()
+  :w
+  :silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
+  :silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
+  :silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
+  :silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
+  :silent !echo;echo;echo;echo;echo;echo;echo;echo;echo;echo
+  :!python manage.py shell
+endfunction
+nnoremap <leader>m :call DjangoRunShell()<cr>
+set nu
+noremap <C-j> 5j<cr>
+noremap <C-k> 5k<cr>
+set pastetoggle=<F2>
+" highlight OverLength ctermbg=red ctermfg=white guibg=#592929
+" match OverLength /\%81v.\+/
+" set scrolloff=20
+" http://www.reddit.com/r/vim/comments/21f4gm/best_workflow_when_using_fugitive/
+nnoremap <space>ga :Git add %:p<CR><CR>
+nnoremap <space>gs :Gstatus<CR>
+nnoremap <space>gc :Gcommit -v -q<CR>
+nnoremap <space>gt :Gcommit -v -q %:p<CR>
+nnoremap <space>gd :Gdiff<CR>
+nnoremap <space>ge :Gedit<CR>
+nnoremap <space>gr :Gread<CR>
+nnoremap <space>gw :Gwrite<CR><CR>
+nnoremap <space>gl :silent! Glog<CR>:bot copen<CR>
+nnoremap <space>gp :Ggrep<Space>
+nnoremap <space>gm :Gmove<Space>
+nnoremap <space>gb :Git branch<Space>
+nnoremap <space>go :Git checkout<Space>
+nnoremap <space>gps :Dispatch! git push<CR>
+nnoremap <space>gpl :Dispatch! git pull<CR>
+map <leader>f :CommandTFlush<cr>\|:CommandT<cr>
+set wildignore+=*.o,*.obj,.git,*.pyc,*.png,*.jpg,node_modules/**,bower_components/**,app/bower_components/**
